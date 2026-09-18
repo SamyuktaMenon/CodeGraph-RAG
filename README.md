@@ -28,39 +28,88 @@ An autonomous, fully offline architectural reasoning and bug-localization engine
 
 ### 1. Prerequisites
 
-* Python 3.10+
-* Docker Desktop (for Neo4j)
-* Ollama installed locally
+Make sure the following are installed:
 
-### 2. Installation & Setup
+- Python 3.10+
+- Git
+- Docker Desktop
+- Ollama
 
-Clone the repository and set up your virtual environment:
+### 2. Clone the Repository
 
 ```bash
-git clone [https://github.com/SamyuktaMenon/CodeGraph-RAG.git](https://github.com/SamyuktaMenon/CodeGraph-RAG.git)
+git clone https://github.com/SamyuktaMenon/CodeGraph-RAG.git
 cd CodeGraph-RAG
+```
 
+### 3. Create a Virtual Environment
+
+#### macOS / Linux
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
+
+#### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 4. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-3. Pull the Local LLM
-Pull the local Llama 3.1 model using Ollama:
+```
 
-Bash
+### 5. Pull the Local LLM
+
+CodeGraph-RAG uses Llama 3.1 through Ollama.
+
+```bash
 ollama pull llama3.1
-4. Run Knowledge Graph Infrastructure
-Start the local Neo4j graph database instance using Docker Compose:
+```
 
-Bash
+Verify the model is installed:
+
+```bash
+ollama list
+```
+
+### 6. Start Neo4j
+
+Start the Neo4j knowledge graph database using Docker Compose:
+
+```bash
 docker-compose up -d
-5. Codebase Ingestion
-Run the ingestion pipeline to parse the codebase into ChromaDB and Neo4j:
+```
 
-Bash
+Verify that the container is running:
+
+```bash
+docker ps
+```
+
+### 7. Ingest the Codebase
+
+Run the ingestion pipeline to parse the codebase and populate ChromaDB and Neo4j:
+
+```bash
 python ingest.py
-6. Launch the Application
-Start the Streamlit interface:
+```
 
-Bash
-streamlit run frontend/app.py
-Open http://localhost:8502 in your browser.
+### 8. Launch the Application
+
+Start the Streamlit frontend:
+
+```bash
+streamlit run frontend/app.py --server.port 8502
+```
+
+Open the application in your browser:
+
+```text
+http://localhost:8502
+```
